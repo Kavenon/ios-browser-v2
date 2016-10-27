@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ACE74D031DC1E2B3005CD725 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE74D021DC1E2B3005CD725 /* TableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		ACE7C0481DAF5EFB003827CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE7C0471DAF5EFB003827CE /* AppDelegate.swift */; };
 		ACE7C04A1DAF5EFB003827CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE7C0491DAF5EFB003827CE /* ViewController.swift */; };
 		ACE7C04D1DAF5EFB003827CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACE7C04B1DAF5EFB003827CE /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ACE74D021DC1E2B3005CD725 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		ACE7C0441DAF5EFB003827CE /* iosbrowser-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iosbrowser-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE7C0471DAF5EFB003827CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACE7C0491DAF5EFB003827CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				ACE7C0471DAF5EFB003827CE /* AppDelegate.swift */,
 				ACE7C0491DAF5EFB003827CE /* ViewController.swift */,
 				ACE7C04B1DAF5EFB003827CE /* Main.storyboard */,
+				ACE74D021DC1E2B3005CD725 /* TableViewController.swift */,
 				ACE7C04E1DAF5EFB003827CE /* Assets.xcassets */,
 				ACE7C0501DAF5EFB003827CE /* LaunchScreen.storyboard */,
 				ACE7C0531DAF5EFB003827CE /* Info.plist */,
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACE7C04A1DAF5EFB003827CE /* ViewController.swift in Sources */,
+				ACE74D031DC1E2B3005CD725 /* TableViewController.swift in Sources */,
 				ACE7C0481DAF5EFB003827CE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,6 +493,7 @@
 				ACE7C06E1DAF5EFB003827CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ACE7C06F1DAF5EFB003827CE /* Build configuration list for PBXNativeTarget "iosbrowser-swiftTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +502,7 @@
 				ACE7C0711DAF5EFB003827CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ACE7C0721DAF5EFB003827CE /* Build configuration list for PBXNativeTarget "iosbrowser-swiftUITests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +511,7 @@
 				ACE7C0741DAF5EFB003827CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
