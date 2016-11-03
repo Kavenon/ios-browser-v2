@@ -40,8 +40,12 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellID", forIndexPath: indexPath)
 
-        cell.textLabel?.text = albums[indexPath.row].artist;
-        cell.detailTextLabel?.text = albums[indexPath.row].title;
+        let album = self.albums![indexPath.row] as! NSMutableDictionary;
+        
+       
+        cell.textLabel?.text = album.valueForKey("artist") as? String;
+        cell.detailTextLabel?.text = album.valueForKey("title") as? String;
+        
         
         // Configure the cell...
 
@@ -84,14 +88,42 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+    @IBAction func unwindToTable(segue: UIStoryboardSegue){
+        let viewController = segue.sourceViewController as! ViewController;
+        albums = viewController.albums;
+        
+        self.tableView.reloadData();
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let viewController = segue.destinationViewController as! ViewController
+        
+        if segue.identifier == "detail" {
+            let row = self.tableView.indexPathForSelectedRow!.row;
+            viewController.apiEditElement = true;
+            viewController.apiEditRow = row;
+            viewController.albums = albums;
+          
+     
+        }
+        else if segue.identifier == "add" {
+            viewController.apiNewElement = true;
+            viewController.newElement();
+            viewController.albums = albums;
+            
+        }
+        
+     //   let viewController:ViewController = segue!.destinationViewController as ViewController
+     //   let indexPath = self.tableView.indexPathForSelectedRow()
+     //   viewController.pinCode = self.exams[indexPath.row]
+        
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+
 
 }

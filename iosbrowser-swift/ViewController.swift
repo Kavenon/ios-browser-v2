@@ -10,14 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet var navLabel: UILabel!
-    
-    @IBOutlet var previousButton: UIButton!
-    @IBOutlet var nextButton: UIButton!
+    @IBOutlet weak var navLabel: UILabel!
     
     @IBOutlet var saveButton: UIButton!
     @IBOutlet var deleteButton: UIButton!
-    @IBOutlet var newButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    
     @IBOutlet var stepper: UIStepper!
     
     @IBOutlet var ratingLabel: UILabel!
@@ -25,6 +23,15 @@ class ViewController: UIViewController {
     @IBOutlet var titleInput: UITextField!
     @IBOutlet var genreInput: UITextField!
     @IBOutlet var yearInput: UITextField!
+    
+    var apiNewElement = false;
+    var apiEditElement = false;
+    var apiEditRow = 0;
+    
+    
+    @IBAction func cancelAction(sender: AnyObject) {
+        print("cancled");
+    }
     
     @IBAction func stepperAction(sender: AnyObject) {
         
@@ -40,21 +47,6 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func previousButtonAction(sender: AnyObject) {
-        
-        if(self.currentIndex > 0){
-            
-            if(!self.newElementCreating){
-                self.currentIndex--;
-            }
-            
-            self.editNthElement(self.currentIndex);
-            if(self.currentIndex == 0){
-                self.previousButton.enabled = false;
-            }
-        }
-        
-    }
     
     @IBAction func saveButtonAction(sender: AnyObject) {
         
@@ -69,7 +61,6 @@ class ViewController: UIViewController {
             
             self.albums!.addObject(newElement!);
             
-            self.loadFirstOrNew();
         }
         else {
             let album = self.albums![self.currentIndex] as! NSMutableDictionary;
@@ -80,29 +71,15 @@ class ViewController: UIViewController {
             album.setValue(Int(self.yearInput.text!), forKey: "date");
         }
         self.saveButton.enabled = false;
+       
         
     }
     
-    @IBAction func nextButtonAction(sender: AnyObject) {
-        
-        
-        if((self.albums?.count)!-1 < self.currentIndex+1){
-            self.newElement();
-        }
-        else {
-            self.currentIndex++;
-            self.editNthElement(self.currentIndex);
-            self.previousButton.enabled = true;
-        }
-                
-    }
     @IBAction func deleteAction(sender: AnyObject) {
         
         if(!self.newElementCreating){
             self.albums!.removeObjectAtIndex(self.currentIndex);
         }
-        
-        self.loadFirstOrNew();
         
     }
     
@@ -126,7 +103,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func newButtonAction(sender: AnyObject) {
-        self.newButton.enabled = false;
         self.saveButton.enabled = false;
         newElement();
     }
@@ -140,7 +116,6 @@ class ViewController: UIViewController {
     func loadFirstOrNew(){
         if(self.albums!.count > 0){
             self.editNthElement(0);
-            self.previousButton.enabled = false;
         }
         else {
             self.newElement();
@@ -152,29 +127,33 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        albums = NSMutableArray(contentsOfFile:plistCatPath!);
-
-        if(albums!.count > 0){
-            self.editNthElement(self.currentIndex);
+        
+        if albums == nil {
+           albums = NSMutableArray(contentsOfFile:plistCatPath!);
         }
+       
         
-        self.previousButton.enabled = false;
-        
+        if(self.apiNewElement){
+            self.newElement();
+        }
+        else if(self.apiEditElement){
+            self.editNthElement(self.apiEditRow);
+        }
         
     }
       func newElement(){
         
-        self.ratingLabel.text = "";
-        self.artistInput.text = "";
-        self.titleInput.text = "";
-        self.genreInput.text = "";
-        self.yearInput.text = "";
-        self.stepper.value = 0.0;
-        navLabel.text = "New element";
+        self.ratingLabel?.text = "";
+        self.artistInput?.text = "";
+        self.titleInput?.text = "";
+        self.genreInput?.text = "";
+        self.yearInput?.text = "";
+        self.stepper?.value = 0.0;
+        navLabel?.text = "New element";
         
-        self.deleteButton.enabled = true;
+        self.deleteButton?.enabled = true;
         self.newElementCreating = true;
-        self.newButton.enabled = false;
+       
     }
        
     func editNthElement(index : Int){
@@ -194,18 +173,13 @@ class ViewController: UIViewController {
         }
      
         self.stepper.value = (album["rating"]??.doubleValue)!;
-        
-        self.updateNavLabel();
-        self.newButton.enabled = true;
+      
         self.deleteButton.enabled = true;
-        self.saveButton.enabled = false;
-        self.newButton.enabled = true;
+        self.saveButton.enabled = false;        
         self.newElementCreating = false;
     }
     
-    func updateNavLabel(){
-        navLabel.text = "Record \(self.currentIndex+1) of \(self.albums!.count)";
-    }
+    
     
     func persistToPlist(){
         print("saving");
